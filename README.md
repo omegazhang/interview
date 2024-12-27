@@ -121,6 +121,56 @@ const int* function6();     // 返回一个指向常量的指针变量，使用�
 int* const function7();     // 返回一个指向变量的常指针，使用：int* const p = function7();
 ```
 
+#### const 与函数重载
+C++函数重载可以使用const，并且很常见。函数重载的一部分是可以基于参数的const属性来区分不同的函数，从而实现重载。
+
+```cpp
+// 非const版本的函数
+void printMessage(char* message) {
+    std::cout << "Non-const version: " << message << std::endl;
+}
+
+// const版本的函数
+void printMessage(const char* message) {
+    std::cout << "Const version: " << message << std::endl;
+}
+
+int main() {
+    char nonConstMessage[] = "Hello, world!";
+    const char* constMessage = "Hello, C++!";
+
+    printMessage(nonConstMessage);  // 调用非const版本
+    printMessage(constMessage);     // 调用const版本
+
+    return 0;
+}
+```
+成员函数有"const成员函数"。这种情况可以通过添加const关键字来区分函数重载。
+```cpp
+class MyClass {
+public:
+    // 非const成员函数
+    void display() {
+        std::cout << "Non-const display called" << std::endl;
+    }
+
+    // const成员函数
+    void display() const {
+        std::cout << "Const display called" << std::endl;
+    }
+};
+
+int main() {
+    MyClass obj;
+    const MyClass constObj;
+
+    obj.display();        // 调用非const成员函数
+    constObj.display();   // 调用const成员函数
+
+    return 0;
+}
+```
+
 #### 宏定义 #define 和 const 常量 
 
 宏定义 #define|const 常量
